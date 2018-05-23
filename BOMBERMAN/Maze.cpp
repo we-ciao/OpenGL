@@ -13,6 +13,7 @@
 
 Maze::Maze()
 {
+	initMaze();
 
 }
 
@@ -21,7 +22,7 @@ Maze::~Maze()
 }
 
 
-void Maze::DrawScence(void)
+void Maze::DrawMaze(void)
 {
 
 	//设置清屏颜色为黑色
@@ -29,22 +30,27 @@ void Maze::DrawScence(void)
 	//清除颜色缓冲区和深度缓冲区
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	glTranslatef(0,0,-6);
-	
+	glTranslatef(0,0,-100);
+	//drawCell(CPoint(0,0),1);
+	CPoint p;
+	glPushMatrix();
+	glTranslatef(WINDOWWIDTH/2* 0.01,40,0);
+	glRotatef(180,1,0,0);
+
+	//glRotatef(180,0,1,0);
+	for (int i=0;i<MAZEROW;i++)
+	{
+		for(int j=0;j<MAZECOL;j++){
+			
+			p.x = j*CELLWIDTH;
+			p.y = i*CELLHEIGHT;
+			drawCell(p,ppMaze[i][j]);
+			
+		}
+	}
+	glPopMatrix();
 	glFinish();
 	SwapBuffers(wglGetCurrentDC());
-	//for (int i=0;i<MAZEROW;i++)
-	//{
-	//	for(int j=0;j<MAZECOL;j++){
-	//		CPoint p;
-	//		p.x = i*CELLWIDTH+12;
-
-	//		
-	//			drawCell()
-	//		
-	//	}
-	//}
-	
 }
 
 
@@ -78,12 +84,16 @@ void Maze::createMonster()
 //绘制方格, 在p位置绘制type方格
 void Maze::drawCell(CPoint p,int type)
 {
+	
 	glBegin(GL_QUADS);  // OpenGL绘制直线命令
-	glColor3f(1.0, 0.0, 0.0); // 设置当前颜色为红色
-
-	glVertex3f(-1.0, 0.0,0.0);
-	glVertex3f(-1.0, 1.0,0.0);
-	glVertex3f(1.0, 1.0,0.0);
-	glVertex3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
+	switch(type){
+	case obstacle: glColor3f(0.0, 1.0, 0.0);break;// 设置当前颜色为l绿色
+	case playerDown: glColor3f(1.0, 0.0, 0.0);break;
+	}
+	glVertex3f(p.x, p.y,0.0);
+	glVertex3f(p.x, p.y+CELLHEIGHT,0.0);
+	glVertex3f(p.x+CELLWIDTH, p.y+CELLHEIGHT,0.0);
+	glVertex3f(p.x+CELLWIDTH, p.y, 0.0);
 	glEnd();
 }

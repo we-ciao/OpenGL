@@ -5,7 +5,7 @@
 
 const int MAZEROW = 30;
 const int MAZECOL = 50;
-const int CELLWIDTH = 30;
+const int CELLWIDTH = 5;
 const int CELLHEIGHT = CELLWIDTH;
 
 
@@ -24,7 +24,9 @@ class Maze
 public:
 	Maze();
 	virtual ~Maze();
-	void DrawScence();
+	void DrawMaze();
+const static	 int WINDOWWIDTH=960 ;
+const static int WINDOWHEIGHT =640;
 	
 
 protected:

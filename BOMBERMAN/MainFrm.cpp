@@ -6,6 +6,7 @@
 #include "BOMBERMAN.h"
 
 #include "MainFrm.h"
+#include "Maze.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -68,6 +69,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
+	cs.cx=Maze::WINDOWWIDTH;
+	cs.cy=Maze::WINDOWHEIGHT;
+
 	if( !CFrameWnd::PreCreateWindow(cs) )
 		return FALSE;
 	// TODO: Modify the Window class or styles here by modifying

@@ -50,7 +50,6 @@ BOOL CBOMBERMANView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
-
 	return CView::PreCreateWindow(cs);
 }
 
@@ -65,7 +64,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 
 	// TODO: add draw code for native data here
 	//设置清屏颜色为黑色
-	maze.DrawScence();
+	maze.DrawMaze();
 }
 
 
@@ -112,7 +111,7 @@ CBOMBERMANDoc* CBOMBERMANView::GetDocument() const // non-debug version is inlin
 // CBOMBERMANView message handlers
 
 void CBOMBERMANView::Init(void)
-{
+{	
 	HGLRC hrc;
 	m_pDC=new CClientDC(this);
 	if(!bSetupPixelFormat())
