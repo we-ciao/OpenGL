@@ -14,7 +14,10 @@
 Maze::Maze()
 {
 	initMaze();
+	loadBmp();
 
+	//说明映射方式
+	glEnable(GL_TEXTURE_2D);
 }
 
 Maze::~Maze()
@@ -35,7 +38,7 @@ void Maze::DrawMaze(void)
 	glTranslatef(-WINDOWWIDTH / 13, -WINDOWHEIGHT / 15, 0);
 
 	CPoint p;
-	glPushMatrix();
+	glPushMatrix(); 
 
 	for (int i=0;i<MAZEROW;i++)
 	{
@@ -83,17 +86,17 @@ void Maze::createMonster()
 //绘制方格, 在p位置绘制type方格
 void Maze::drawCell(CPoint p,int type)
 {
-	
+	glBindTexture(GL_TEXTURE_2D, Texture[normal].ID);
 	glBegin(GL_QUADS);  // OpenGL绘制直线命令
 	glColor3f(1.0, 1.0, 1.0);
 	switch(type){
 	case obstacle: glColor3f(0.0, 1.0, 0.0);break;// 设置当前颜色为l绿色
 	case playerDown: glColor3f(1.0, 0.0, 0.0);break;
 	}
-	glVertex3f(p.x, p.y,0.0);
-	glVertex3f(p.x, p.y+CELLHEIGHT,0.0);
-	glVertex3f(p.x+CELLWIDTH, p.y+CELLHEIGHT,0.0);
-	glVertex3f(p.x+CELLWIDTH, p.y, 0.0);
+	glVertex2d(p.x, p.y); glTexCoord2f(0, 0);
+	glVertex2d(p.x, p.y+CELLHEIGHT); glTexCoord2f(1 , 0.0);
+	glVertex2d(p.x+CELLWIDTH, p.y+CELLHEIGHT); glTexCoord2f(1 , 1);
+	glVertex2d(p.x+CELLWIDTH, p.y); glTexCoord2f(0, 1);
 	glEnd();
 }
 
@@ -101,4 +104,22 @@ void Maze::drawCell(CPoint p,int type)
 void Maze::setCellVal(int x,int y, int val)
 {
 	ppMaze[x][y] = val;
+}
+
+
+//启用纹理映射
+void Maze::loadBmp()
+{
+	if (!Texture[normal].LoadBitmap("res/grass.bmp"))              /**< 载入位图文件 */
+	{
+		MessageBox(NULL,"装载位图文件失败！", "错误", MB_OK);  /**< 如果载入失败则弹出对话框 */
+		return;
+	}	
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	//定义二维纹理
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, CELLWIDTH,
+		CELLHEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE,
+		Texture[normal].image);
+
 }

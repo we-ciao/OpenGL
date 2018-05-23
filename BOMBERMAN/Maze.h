@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "BmpLoader.h"
 
 
 const int MAZEROW = 17;
@@ -33,12 +33,14 @@ public:
 
 protected:
 		int	 ppMaze[MAZEROW][MAZECOL];
+		CBmpLoader Texture[50];
 
 private:
 	void initMaze();//初始化迷宫
 	void createBrick();//随机生成砖块
 	void createMonster();//随机生成怪物
 	void drawCell(CPoint p, int type);//绘制方格, 在p位置绘制type方格
+	void loadBmp();
 };
 
 
