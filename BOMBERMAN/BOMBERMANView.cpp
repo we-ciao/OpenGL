@@ -32,6 +32,7 @@ BEGIN_MESSAGE_MAP(CBOMBERMANView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // CBOMBERMANView construction/destruction
@@ -63,7 +64,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
-	//设置清屏颜色为黑色
+	player.maze = &maze;
 	maze.DrawMaze();
 }
 
@@ -185,4 +186,13 @@ void CBOMBERMANView::OnSize(UINT nType, int cx, int cy)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+}
+
+
+void CBOMBERMANView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	player.move(nChar);
+	Invalidate();
+	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

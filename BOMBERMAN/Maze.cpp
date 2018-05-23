@@ -96,3 +96,9 @@ void Maze::drawCell(CPoint p,int type)
 	glVertex3f(p.x+CELLWIDTH, p.y, 0.0);
 	glEnd();
 }
+
+//…Ë÷√ª√∑Ω÷µ
+void Maze::setCellVal(int x,int y, int val)
+{
+	ppMaze[x][y] = val;
+}
