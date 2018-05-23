@@ -31,13 +31,12 @@ void Maze::DrawMaze(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glTranslatef(0,0,-100);
-	//drawCell(CPoint(0,0),1);
+	glRotatef(180, 1, 0, 0);
+	glTranslatef(-WINDOWWIDTH / 13, -WINDOWHEIGHT / 15, 0);
+
 	CPoint p;
 	glPushMatrix();
-	glTranslatef(WINDOWWIDTH/2* 0.01,40,0);
-	glRotatef(180,1,0,0);
 
-	//glRotatef(180,0,1,0);
 	for (int i=0;i<MAZEROW;i++)
 	{
 		for(int j=0;j<MAZECOL;j++){

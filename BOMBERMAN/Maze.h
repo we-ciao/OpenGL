@@ -3,8 +3,8 @@
 
 
 
-const int MAZEROW = 30;
-const int MAZECOL = 50;
+const int MAZEROW = 17;
+const int MAZECOL = 29;
 const int CELLWIDTH = 5;
 const int CELLHEIGHT = CELLWIDTH;
 
@@ -25,7 +25,7 @@ public:
 	Maze();
 	virtual ~Maze();
 	void DrawMaze();
-const static	 int WINDOWWIDTH=960 ;
+const static	 int WINDOWWIDTH=950 ;
 const static int WINDOWHEIGHT =640;
 	
 
