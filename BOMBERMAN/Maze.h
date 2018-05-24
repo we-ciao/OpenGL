@@ -23,24 +23,23 @@ enum CellType {
 class Maze
 {
 public:
+	CBmpLoader * Texture;
 	Maze();
 	virtual ~Maze();
 	void DrawMaze();
 	const static int WINDOWWIDTH = 950;//屏幕宽度
 	const static int WINDOWHEIGHT = 640;//屏幕高度
-	void setCellVal(int x,int y, int val);//设置幻方值
+	void setCellVal(int x, int y, int val);//设置幻方值
 
 
 protected:
-		int	 ppMaze[MAZEROW][MAZECOL];
-		CBmpLoader Texture[50];
+	int	 ppMaze[MAZEROW][MAZECOL];
 
 private:
 	void initMaze();//初始化迷宫
 	void createBrick();//随机生成砖块
 	void createMonster();//随机生成怪物
 	void drawCell(CPoint p, int type);//绘制方格, 在p位置绘制type方格
-	void loadBmp();
 };
 
 

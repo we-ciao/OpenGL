@@ -12,15 +12,16 @@ protected: // create from serialization only
 	CBOMBERMANView();
 	DECLARE_DYNCREATE(CBOMBERMANView)
 
-// Attributes
+	// Attributes
 public:
-	CBOMBERMANDoc* GetDocument() const;
+	CBOMBERMANDoc * GetDocument() const;
 	Maze maze;
 	Player player;
-// Operations
+	CBmpLoader Texture[50];
+	// Operations
 public:
 
-// Overrides
+	// Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -29,7 +30,7 @@ protected:
 	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
 	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
 
-// Implementation
+	// Implementation
 public:
 	virtual ~CBOMBERMANView();
 #ifdef _DEBUG
@@ -38,13 +39,15 @@ public:
 #endif
 
 protected:
+	void loadBmp(char * freName, int type);
+	void loadTexture();
 
-// Generated message map functions
+	// Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
 
-	
+
 
 
 
@@ -56,13 +59,15 @@ public:
 	CClientDC * m_pDC;
 	void Init(void);
 	bool bSetupPixelFormat(void);
-	
+
 
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 #ifndef _DEBUG  // debug version in BOMBERMANView.cpp
 inline CBOMBERMANDoc* CBOMBERMANView::GetDocument() const
-   { return reinterpret_cast<CBOMBERMANDoc*>(m_pDocument); }
+{
+	return reinterpret_cast<CBOMBERMANDoc*>(m_pDocument);
+}
 #endif
 

@@ -65,6 +65,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 
 	// TODO: add draw code for native data here
 	player.maze = &maze;
+	maze.Texture = Texture;
 	maze.DrawMaze();
 }
 
@@ -112,15 +113,18 @@ CBOMBERMANDoc* CBOMBERMANView::GetDocument() const // non-debug version is inlin
 // CBOMBERMANView message handlers
 
 void CBOMBERMANView::Init(void)
-{	
+{
 	HGLRC hrc;
-	m_pDC=new CClientDC(this);
-	if(!bSetupPixelFormat())
+	m_pDC = new CClientDC(this);
+	if (!bSetupPixelFormat())
 		return;
 
-	hrc=wglCreateContext(m_pDC->GetSafeHdc());
-	wglMakeCurrent(m_pDC->GetSafeHdc(),hrc);
+	hrc = wglCreateContext(m_pDC->GetSafeHdc());
+	wglMakeCurrent(m_pDC->GetSafeHdc(), hrc);
 
+	glEnable(GL_TEXTURE_2D);
+
+	loadTexture();
 }
 bool CBOMBERMANView::bSetupPixelFormat(void)
 {
@@ -129,14 +133,14 @@ bool CBOMBERMANView::bSetupPixelFormat(void)
 		sizeof(PIXELFORMATDESCRIPTOR),
 		1,
 		PFD_DRAW_TO_WINDOW |
-		PFD_SUPPORT_OPENGL|
+		PFD_SUPPORT_OPENGL |
 		PFD_DOUBLEBUFFER,
 		PFD_TYPE_RGBA,
 		24,
-		0, 0, 0, 0, 0, 0, 
-		0, 
+		0, 0, 0, 0, 0, 0,
 		0,
-		0,  
+		0,
+		0,
 		0, 0, 0, 0,
 		32,
 		0,
@@ -146,12 +150,12 @@ bool CBOMBERMANView::bSetupPixelFormat(void)
 		0, 0, 0
 	};
 	int pixelformat;
-	if((pixelformat = ChoosePixelFormat(m_pDC->GetSafeHdc(), &pfd)) == 0)
+	if ((pixelformat = ChoosePixelFormat(m_pDC->GetSafeHdc(), &pfd)) == 0)
 	{
 		MessageBox("ChoosePixelFormat failed");
 		return FALSE;
 	}
-	if(SetPixelFormat(m_pDC->GetSafeHdc(), pixelformat, &pfd) == FALSE)
+	if (SetPixelFormat(m_pDC->GetSafeHdc(), pixelformat, &pfd) == FALSE)
 	{
 		MessageBox("SetPixelFormat failed");
 		return FALSE;
@@ -177,12 +181,12 @@ void CBOMBERMANView::OnSize(UINT nType, int cx, int cy)
 	CView::OnSize(nType, cx, cy);
 
 	// TODO: Add your message handler code here
-	int w=cx;  int h=cy;
-	glViewport(0,0,w,h); //设置视口与窗口匹配
+	int w = cx;  int h = cy;
+	glViewport(0, 0, w, h); //设置视口与窗口匹配
 	glMatrixMode(GL_PROJECTION); //重新设置坐标系统
 	glLoadIdentity();
 	//建立正交变换下的剪切体
-	gluPerspective(45.0,(float)w/h,1,100);
+	gluPerspective(45.0, (float)w / h, 1, 100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -195,4 +199,44 @@ void CBOMBERMANView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	player.move(nChar);
 	Invalidate();
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+//加载材质
+void CBOMBERMANView::loadTexture()
+{
+
+	loadBmp("res/normal.bmp", normal);
+	loadBmp("res/obstacle.bmp", obstacle);
+}
+
+//加载bmp
+void CBOMBERMANView::loadBmp(char * freName, int type)
+{
+
+	/**< 启用纹理映射 */
+	if (!Texture[type].LoadBitmap(freName))             /**< 载入位图文件 */
+	{
+		MessageBox("装载位图文件失败！", "错误", MB_OK);  /**< 如果载入失败则弹出对话框 */
+		return;
+	}
+	glGenTextures(1, &Texture[type].ID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
+
+	//定义二维纹理
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, Texture[type].imageWidth,
+		Texture[type].imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE,
+		Texture[type].image);
+
+
+
+	//控制滤波
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	//说明映射方式
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
 }
