@@ -39,17 +39,16 @@ void Maze::DrawMaze(void)
 
 	CPoint p;
 	glPushMatrix(); 
-
-	for (int i=0;i<MAZEROW;i++)
-	{
-		for(int j=0;j<MAZECOL;j++){
+		for (int i=0;i<MAZEROW;i++)
+		{
+			for(int j=0;j<MAZECOL;j++){
 			
-			p.x = j*CELLWIDTH;
-			p.y = i*CELLHEIGHT;
-			drawCell(p,ppMaze[i][j]);
+				p.x = j*CELLWIDTH;
+				p.y = i*CELLHEIGHT;
+				drawCell(p,ppMaze[i][j]);
 			
+			}
 		}
-	}
 	glPopMatrix();
 	glFinish();
 	SwapBuffers(wglGetCurrentDC());
@@ -87,11 +86,14 @@ void Maze::createMonster()
 void Maze::drawCell(CPoint p,int type)
 {
 	glBindTexture(GL_TEXTURE_2D, Texture[normal].ID);
-	glBegin(GL_QUADS);  // OpenGL绘制直线命令
+	glBegin(GL_QUADS);									// OpenGL绘制正方形命令
 	glColor3f(1.0, 1.0, 1.0);
 	switch(type){
-	case obstacle: glColor3f(0.0, 1.0, 0.0);break;// 设置当前颜色为l绿色
+	case obstacle: glColor3f(0.0, 1.0, 0.0);break;		// 设置当前颜色为l绿色
+	case playerUp: glColor3f(1.0, 0.0, 0.0); break;
+	case playerRight: glColor3f(1.0, 0.0, 0.0); break;
 	case playerDown: glColor3f(1.0, 0.0, 0.0);break;
+	case playerLeft: glColor3f(1.0, 0.0, 0.0); break;
 	}
 	glVertex2d(p.x, p.y); glTexCoord2f(0, 0);
 	glVertex2d(p.x, p.y+CELLHEIGHT); glTexCoord2f(1 , 0.0);
@@ -105,7 +107,11 @@ void Maze::setCellVal(int x,int y, int val)
 {
 	ppMaze[x][y] = val;
 }
-
+//得到幻方值
+int Maze::getCellVal(int x, int y)
+{
+	return ppMaze[x][y];
+}
 
 //启用纹理映射
 void Maze::loadBmp()
@@ -121,5 +127,4 @@ void Maze::loadBmp()
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, CELLWIDTH,
 		CELLHEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE,
 		Texture[normal].image);
-
 }
