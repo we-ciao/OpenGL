@@ -3,7 +3,7 @@
 
 Player::Player()
 {
-	p_x = p_y = 0;
+	p_x = p_y = p_forWard = 0;
 }
 
 Player::~Player()
@@ -11,34 +11,50 @@ Player::~Player()
 }
 //Íæ¼ÒÒÆ¶¯
 void Player::move(int key) {
-		maze->setCellVal(p_x,p_y, normal);
-		switch (key)
-		{
-		case VK_UP:p_forWard = top;
-			if (borderCheck(p_x - 1, p_y)&&collisonCheck(maze->getCellVal(p_x -1,p_y)))
-			{
-				p_x--;
-			}break;
-		case VK_RIGHT:p_forWard = right;
-			if (borderCheck(p_x, p_y + 1) && collisonCheck(maze->getCellVal(p_x, p_y + 1)))
-			{
-				p_y++;
-			}break;
-		case VK_DOWN:p_forWard = bottom;
-			if (borderCheck(p_x + 1, p_y) && collisonCheck(maze->getCellVal(p_x + 1, p_y)))
-			{
-				p_x++;
-			}break;
-		case VK_LEFT:p_forWard = left;
-			if (borderCheck(p_x, p_y - 1) && collisonCheck(maze->getCellVal(p_x, p_y - 1)))
-			{
-				p_y--;
-			}break;
-		case VK_SPACE:
-		default:
-			break;
-		}
-		maze->setCellVal(p_x, p_y, 90 + p_forWard);
+	int n_x = p_x, n_y = p_y;
+	switch (key)
+	{
+	case VK_SPACE:
+		if (maze->getCellVal(p_x, p_y) != boom)
+			maze->setCellVal(p_x, p_y, 94 + p_forWard);
+		return;
+		break;
+	case VK_UP:
+		p_forWard = top;
+		n_x--;
+		break;
+	case VK_RIGHT:
+		p_forWard = right;
+		n_y++;
+		break;
+	case VK_DOWN:
+		p_forWard = bottom;
+		n_x++;
+		break;
+	case VK_LEFT:
+		n_y--;
+		break;
+	default:
+		break;
+	}
+
+	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
+		return;
+
+	
+	
+
+	if (maze->getCellVal(p_x, p_y) >= playerWboomUp
+		&& maze->getCellVal(p_x, p_y) <= playerWboomLeft)
+	{
+		maze->setCellVal(p_x, p_y, boom);
+	}
+	else
+	{
+		maze->setCellVal(p_x, p_y, normal);
+	}
+	 p_x= n_x ,  p_y= n_y ;
+	 maze->setCellVal(p_x, p_y, 90 + p_forWard);
 }
 //±ß½ç¼ì²é
 bool Player::borderCheck(int x, int y) {
@@ -52,8 +68,8 @@ bool Player::borderCheck(int x, int y) {
 	}
 }
 //Åö×²¼ì²â
-bool Player::collisonCheck(int val){
-	if (val == obstacle)
+bool Player::collisonCheck(int val) {
+	if (val != normal)
 	{
 		return false;
 	}
