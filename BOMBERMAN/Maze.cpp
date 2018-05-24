@@ -152,3 +152,9 @@ void Maze::setCellVal(int x, int y, int val)
 {
 	ppMaze[x][y] = val;
 }
+
+//得到幻方值
+int Maze::getCellVal(int x, int y)
+{
+	return ppMaze[x][y];
+}

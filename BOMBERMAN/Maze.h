@@ -29,7 +29,8 @@ public:
 	void DrawMaze();
 	const static int WINDOWWIDTH = 950;//屏幕宽度
 	const static int WINDOWHEIGHT = 640;//屏幕高度
-	void setCellVal(int x, int y, int val);//设置幻方值
+	void setCellVal(int x, int y, int val);		//设置幻方值
+	int getCellVal(int x, int y);				//得到幻方值
 
 protected:
 	int	 ppMaze[MAZEROW][MAZECOL];
