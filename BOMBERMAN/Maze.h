@@ -31,7 +31,6 @@ public:
 	const static int WINDOWHEIGHT = 640;//屏幕高度
 	void setCellVal(int x, int y, int val);//设置幻方值
 
-
 protected:
 	int	 ppMaze[MAZEROW][MAZECOL];
 
