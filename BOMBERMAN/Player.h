@@ -1,5 +1,6 @@
 #pragma once
 #include "Maze.h"
+#include "Boom.h"
 
 enum Forward { top=1, bottom=3, left=4, right=2 };//·½Ïò
 class Player

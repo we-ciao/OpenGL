@@ -3,7 +3,8 @@
 
 Player::Player()
 {
-	p_x = p_y = p_forWard = 0;
+	p_x = p_y = 0;
+	p_forWard = 1;
 }
 
 Player::~Player()
@@ -32,6 +33,7 @@ void Player::move(int key) {
 		n_x++;
 		break;
 	case VK_LEFT:
+		p_forWard = left;
 		n_y--;
 		break;
 	default:
@@ -41,8 +43,6 @@ void Player::move(int key) {
 	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
 		return;
 
-	
-	
 
 	if (maze->getCellVal(p_x, p_y) >= playerWboomUp
 		&& maze->getCellVal(p_x, p_y) <= playerWboomLeft)

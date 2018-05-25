@@ -207,6 +207,18 @@ void CBOMBERMANView::loadTexture()
 
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
+
+	loadBmp("res/playerUp.bmp", playerUp);
+	loadBmp("res/playerRight.bmp", playerRight);
+	loadBmp("res/playerDown.bmp", playerDown);
+	loadBmp("res/playerLeft.bmp", playerLeft);
+
+
+	loadBmp("res/playerWboomUp.bmp", playerWboomUp);
+	loadBmp("res/playerWboomRight.bmp", playerWboomRight);
+	loadBmp("res/playerWboomDown.bmp", playerWboomDown);
+	loadBmp("res/playerWboomLeft.bmp", playerWboomLeft);
+	loadBmp("res/boom.bmp", boom);
 }
 
 //加载bmp
@@ -224,7 +236,7 @@ void CBOMBERMANView::loadBmp(char * freName, int type)
 	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
 
 	//定义二维纹理
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, Texture[type].imageWidth,
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, Texture[type].imageWidth,
 		Texture[type].imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE,
 		Texture[type].image);
 

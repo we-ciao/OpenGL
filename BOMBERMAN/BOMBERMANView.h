@@ -17,7 +17,7 @@ public:
 	CBOMBERMANDoc * GetDocument() const;
 	Maze maze;
 	Player player;
-	CBmpLoader Texture[50];
+	CBmpLoader Texture[100];
 	// Operations
 public:
 

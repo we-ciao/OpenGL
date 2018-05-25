@@ -125,25 +125,14 @@ void Maze::drawCell(CPoint p, int type)
 {
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
+
 	glBegin(GL_QUADS);  // OpenGL绘制直线命令
-	glColor3f(1.0, 1.0, 1.0);
-	switch(type){
-	case obstacle: glColor3f(0.0, 1.0, 0.0);break;		// 设置当前颜色为l绿色
-	case playerUp: glColor3f(1.0, 0.0, 0.0); break;
-	case playerRight: glColor3f(1.0, 0.0, 0.0); break;
-	case playerDown: glColor3f(1.0, 0.0, 0.0);break;
-	case playerLeft: glColor3f(1.0, 0.0, 0.0); break;
-	case playerWboomUp: glColor3f(0.0, 0.0, 0.0); break;
-	case playerWboomRight: glColor3f(0.0, 0.0, 0.0); break;
-	case playerWboomDown: glColor3f(0.0, 0.0, 0.0); break;
-	case playerWboomLeft: glColor3f(0.0, 0.0, 0.0); break;
-	case boom: glColor3f(0.0, 0.0, 0.0); break;
-	}
-	glTexCoord2f(1.0f, 0.0f); glVertex2d(p.x, p.y);
-	glTexCoord2f(1.0f, 1.0f); glVertex2d(p.x, p.y + CELLHEIGHT);
-	glTexCoord2f(0.0f, 1.0f); glVertex2d(p.x + CELLWIDTH, p.y + CELLHEIGHT);
-	glTexCoord2f(0.0f, 0.0f); glVertex2d(p.x + CELLWIDTH, p.y);
+	glTexCoord2f(0.0f, 1.0f); glVertex2d(p.x, p.y);
+	glTexCoord2f(1.0f, 1.0f); glVertex2d(p.x + CELLWIDTH, p.y);
+	glTexCoord2f(1.0f, 0.0f); glVertex2d(p.x + CELLWIDTH, p.y + CELLHEIGHT);
+	glTexCoord2f(0.0f, 0.0f); glVertex2d(p.x, p.y + CELLHEIGHT);
 	glEnd();
+
 	glPopMatrix();
 }
 
