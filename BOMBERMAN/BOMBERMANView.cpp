@@ -65,6 +65,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 
 	// TODO: add draw code for native data here
 	player.maze = &maze;
+	
 	maze.Texture = Texture;
 	maze.DrawMaze();
 }

@@ -13,5 +13,6 @@ public:
 	bool collisonCheck(int);		//Åö×²¼ì²â
 	void move(int key);				//Íæ¼ÒÒÆ¶¯
 	Maze* maze;						//ÃÔ¹¬
+	Boom* bullet;
 };
 

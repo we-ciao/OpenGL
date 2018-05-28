@@ -4,6 +4,9 @@
 #include "stdafx.h"
 #include "BOMBERMAN.h"
 #include "Maze.h"
+#include "Monster.h"
+#include "time.h"
+#include "windows.h"
 
 #include"gl/gl.h"
 #include"gl/glu.h"
@@ -18,6 +21,7 @@ Maze::Maze()
 
 Maze::~Maze()
 {
+	
 }
 
 
@@ -107,7 +111,9 @@ void Maze::initMaze() {
 	}
 	ppMaze[0][0] = playerDown;//设置玩家
 	createBrick();//随机生成砖块
-	createMonster();//随机生成怪物
+	/*HANDLE hThread = CreateThread(NULL, 0, createMonster, NULL, 0, NULL);
+	CloseHandle(hThread);*/
+	//createMonster();//随机生成怪物
 }
 
 //随机生成砖块
@@ -118,14 +124,19 @@ void Maze::createBrick()
 //随机生成怪物
 void Maze::createMonster()
 {
-
+	srand((unsigned)time(0));
+	Monster monster(rand()%MAZEROW,rand()%MAZECOL);
+	setCellVal(monster.m_x,monster.m_y, monsterUp);
 }
 //绘制方格, 在p位置绘制type方格
 void Maze::drawCell(CPoint p, int type)
 {
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
-
+	if (type == explosion)
+	{
+		glColor3f(0,0,0);
+	}
 	glBegin(GL_QUADS);  // OpenGL绘制直线命令
 	glTexCoord2f(0.0f, 1.0f); glVertex2d(p.x, p.y);
 	glTexCoord2f(1.0f, 1.0f); glVertex2d(p.x + CELLWIDTH, p.y);
