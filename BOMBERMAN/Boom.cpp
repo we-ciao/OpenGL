@@ -39,11 +39,18 @@ Boom::~Boom()
 
 //炸弹在产生后爆炸
 void Boom::explose(Maze* maze){
-
+	int count = 0;
 	//向下
 	for (int newX = this->x; newX <= x + rang && newX < MAZEROW; newX++) {
 		if (eachCase(newX, y, maze) == false)
 			break;
+		if (maze->getCellVal(newX, y) != normal)
+		{
+			maze->setCellVal(newX, y, explosion);
+			if(count == 1)
+			break;
+		}
+		count++;
 		maze->setCellVal(newX, y, explosion);
 	}
 		
@@ -52,6 +59,11 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(newX, y, maze) == false)
 			break;
+		if (maze->getCellVal(newX, y) != normal)
+		{
+			maze->setCellVal(newX, y, explosion);
+			break;
+		}
 		maze->setCellVal(newX, y, explosion);
 	}
 		
@@ -60,7 +72,11 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(x, newY, maze) == false)
 			break;
-
+		if (maze->getCellVal(x, newY) != normal)
+		{
+			maze->setCellVal(x, newY, explosion);
+			break;
+		}
 		maze->setCellVal(x, newY, explosion);
 	}
 	//向左
@@ -68,6 +84,11 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(x, newY, maze) == false)
 			break;
+		if (maze->getCellVal(x, newY) != normal)
+		{
+			maze->setCellVal(x, newY, explosion);
+			break;
+		}
 		maze->setCellVal(x, newY, explosion);
 	}
 }
@@ -75,13 +96,13 @@ void Boom::explose(Maze* maze){
 
 bool Boom::eachCase(int nx,int ny,Maze* maze) {
 	//game->isSomeone(x, y);判断是不是玩家
-	if (maze->getCellVal(nx, ny) != normal && nx!=x && ny!=y ||maze->getCellVal(nx, ny) == obstacle)
+	if (maze->getCellVal(nx, ny) != obstacle)
 	{
-		return false;
+		return true;
 	}
 	else
 	{
-		return true;
+		return false;
 	}
 }
 //判断炸弹是否达到爆炸时间
