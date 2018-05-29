@@ -87,7 +87,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
-	MyGame.maze.DrawMaze();
+	MyGame.draw();
 }
 
 
@@ -217,11 +217,11 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
 	loadBmp("res/brick.bmp", brick);
-
 	loadBmp("res/playerUp.bmp", playerUp);
 	loadBmp("res/playerRight.bmp", playerRight);
 	loadBmp("res/playerDown.bmp", playerDown);
 	loadBmp("res/playerLeft.bmp", playerLeft);
+
 
 	loadBmp("res/playerWboomUp.bmp", playerWboomUp);
 	loadBmp("res/playerWboomRight.bmp", playerWboomRight);
@@ -229,6 +229,26 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerWboomLeft.bmp", playerWboomLeft);
 	loadBmp("res/boom.bmp", boom);
 	loadBmp("res/explosion.bmp", explosion);
+
+
+	loadBmp("res/Up2.bmp", playerUp2);
+	loadBmp("res/Up3.bmp", playerUp3);
+	loadBmp("res/Up4.bmp", playerUp4);
+	Texture[playerUp1].ID = Texture[playerUp5].ID = Texture[playerUp].ID;
+	loadBmp("res/Right2.bmp", playerRight2);
+	loadBmp("res/Right3.bmp", playerRight3);
+	loadBmp("res/Right4.bmp", playerRight4);
+	Texture[playerRight1].ID = Texture[playerRight5].ID = Texture[playerRight].ID;
+	loadBmp("res/Down2.bmp", playerDown2);
+	loadBmp("res/Down3.bmp", playerDown3);
+	loadBmp("res/Down4.bmp", playerDown4);
+	Texture[playerDown1].ID = Texture[playerDown5].ID = Texture[playerDown].ID;
+	loadBmp("res/Left2.bmp", playerLeft2);
+	loadBmp("res/Left3.bmp", playerLeft3);
+	loadBmp("res/Left4.bmp", playerLeft4);
+	Texture[playerLeft1].ID = Texture[playerLeft5].ID = Texture[playerLeft].ID;
+
+
 }
 
 unsigned char color[3] = { 255,255,255 };

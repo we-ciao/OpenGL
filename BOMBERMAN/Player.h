@@ -3,6 +3,9 @@
 #include "Boom.h"
 #include <list>
 
+#include"gl/gl.h"
+#include"gl/glu.h"
+
 
 class Player
 {
@@ -20,5 +23,5 @@ private:
 	bool borderCheck(int ,int );					//±ß½ç¼ì²é
 	bool collisonCheck(int);						//Åö×²¼ì²â
 	Boom* bullet;
-};
 
+};

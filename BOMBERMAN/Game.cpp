@@ -1,14 +1,13 @@
 
 #include "stdafx.h"
-#include "BOMBERMAN.h"
 #include "Game.h"
-#include "Maze.h"
-#include "Boom.h"
 
 // Maze
 
 Game::Game()
 {
+	
+	//player = new Player(12, 96, -2.0f, -2.5f,0, index1, 0.15f);
 	player.maze = &maze;
 	player.boomlist = &boomlist;
 }
@@ -16,6 +15,11 @@ Game::Game()
 Game::~Game()
 {
 
+}
+
+void Game::draw()
+{
+	maze.DrawMaze();
 }
 
 //π‹¿Ì’®µØ

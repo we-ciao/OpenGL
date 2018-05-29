@@ -21,21 +21,6 @@ Boom::Boom(int inX, int inY, int inId, int irange, double istartTime)
 Boom::~Boom()
 {
 }
-//爆炸之后 变为平地
-//void Boom::Destroy(int x,int y) {
-//	if (maze->getCellVal(x,y) == boom)
-//	{
-//		maze->setCellVal(x, y, normal);
-//		if (check(x + 1, y) && eachCase(x + 1, y))
-//			maze->setCellVal(x + 1, y, normal);
-//		if (check(x, y + 1) && eachCase(x, y + 1))
-//			maze->setCellVal(x, y + 1, normal);
-//		if (check(x - 1, y) && eachCase(x - 1, y))
-//			maze->setCellVal(x - 1, y, normal);
-//		if (check(x, y - 1) && eachCase(x, y - 1))
-//			maze->setCellVal(x, y - 1, normal);
-//	}
-//}
 
 //炸弹在产生后爆炸
 void Boom::explose(Maze* maze){

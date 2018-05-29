@@ -5,6 +5,7 @@
 #include "Maze.h"
 #include "Monster.h"
 #include "Player.h"
+#include "BOMBERMAN.h"
 #include <list>
 
 class Game
@@ -21,8 +22,8 @@ public:
 	Player player;
 
 	double	_time;//时间
-	void Game::manageBomb();//管理炸弹
-
+	void manageBomb();//管理炸弹
+	void draw();
 
 protected:
 	std::list<Boom*> boomlist;//炸弹队列
