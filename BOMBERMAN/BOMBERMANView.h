@@ -14,8 +14,8 @@ protected: // create from serialization only
 	// Attributes
 public:
 	CBOMBERMANDoc * GetDocument() const;
-	CBmpLoader Texture[100];
-	Game MyGame;
+	CBmpLoader Texture[100];	//保存纹理图片的数组
+	Game MyGame;				//Game对象
 	// Operations
 public:
 
@@ -38,7 +38,7 @@ public:
 
 protected:
 	void loadBmp(char * freName, int type);
-	void loadTexture();
+	void loadTexture();		//加载材质
 
 	// Generated message map functions
 protected:

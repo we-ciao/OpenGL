@@ -39,16 +39,21 @@ Boom::~Boom()
 
 //炸弹在产生后爆炸
 void Boom::explose(Maze* maze){
+	srand((unsigned)time(0));
 	int count = 0;//计数器
+	int flag = 0;
 	//向下
 	for (int newX = this->x; newX <= x + rang && newX < MAZEROW; newX++) {
 		if (eachCase(newX, y, maze) == false )
 			break;
+		flag = maze->getCellVal(newX, y);
 		if (maze->getCellVal(newX, y) != normal)
 		{
-			
 			maze->setCellVal(newX, y, explosion);
-			
+			if (flag == brick && rand()%10 == brick)
+			{
+				maze->setCellVal(newX, y, reward);
+			}
 			if(count == 1)
 			break;
 		}
@@ -61,9 +66,14 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(newX, y, maze) == false)
 			break;
+		flag = maze->getCellVal(newX, y);
 		if (maze->getCellVal(newX, y) != normal)
 		{
 			maze->setCellVal(newX, y, explosion);
+			if (flag == brick && rand() % 10 == brick)
+			{
+				maze->setCellVal(newX, y, reward);
+			}
 			break;
 		}
 		maze->setCellVal(newX, y, explosion);
@@ -74,9 +84,14 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(x, newY, maze) == false)
 			break;
+		flag = maze->getCellVal(x, newY);
 		if (maze->getCellVal(x, newY) != normal)
 		{
 			maze->setCellVal(x, newY, explosion);
+			if (flag == brick && rand() % 10 == brick)
+			{
+				maze->setCellVal(x, newY, reward);
+			}
 			break;
 		}
 		maze->setCellVal(x, newY, explosion);
@@ -86,9 +101,14 @@ void Boom::explose(Maze* maze){
 	{
 		if (eachCase(x, newY, maze) == false)
 			break;
+		flag = maze->getCellVal(x, newY);
 		if (maze->getCellVal(x, newY) != normal)
 		{
 			maze->setCellVal(x, newY, explosion);
+			if (flag == brick && rand() % 10 == brick)
+			{
+				maze->setCellVal(x, newY, reward);
+			}
 			break;
 		}
 		maze->setCellVal(x, newY, explosion);

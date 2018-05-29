@@ -4,7 +4,7 @@
 
 Player::Player()
 {
-	range = 2;
+	range = 1;
 	boomid = 0;
 	p_x = p_y = 0;
 	p_forWard = bottom;
@@ -21,8 +21,8 @@ void Player::move(int key,double time) {
 	case VK_SPACE:
 		if (maze->getCellVal(p_x, p_y) != boom) {
 			maze->setCellVal(p_x, p_y, 94 + p_forWard);
-			bullet = new Boom(p_x, p_y, boomid++, range, time);
-			boomlist->push_back(bullet);
+			bullet = new Boom(p_x, p_y, boomid++, range, time);		//制造炸弹
+			boomlist->push_back(bullet);							//放入链表
 		}
 		return;
 		break;
@@ -48,6 +48,9 @@ void Player::move(int key,double time) {
 
 	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
 		return;
+
+	if (maze->getCellVal(n_x, n_y) == reward)
+		range++;
 
 
 	if (maze->getCellVal(p_x, p_y) >= playerWboomUp
@@ -80,12 +83,12 @@ bool Player::borderCheck(int x, int y) {
 }
 //碰撞检测
 bool Player::collisonCheck(int val) {
-	if (val != normal)
+	if (val == normal || val == reward)
 	{
-		return false;
+		return true;
 	}
 	else
 	{
-		return true;
+		return false;
 	}
 }

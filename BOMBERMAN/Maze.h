@@ -14,6 +14,7 @@ const int CELLHEIGHT = CELLWIDTH;
 //枚举 
 enum CellType {
 	normal = 0, brick = 1, boom = 2, obstacle = 3, explosion = 4,				//3障碍物，0空地，1 砖块，2 炸弹 ,4 爆炸
+	reward = 5,	//	道具
 	monsterUp = 41, monsterRight = 42, monsterDown = 43, monsterLeft = 44,			//4开头为怪物的上下左右四个状态
 	playerUp = 91, playerRight = 92, playerDown = 93, playerLeft = 94,			//9开头为玩家的上下左右四个状态
 	playerWboomUp = 95, playerWboomRight = 96, playerWboomDown = 97, playerWboomLeft = 98,	//炸弹和玩家在同一位置

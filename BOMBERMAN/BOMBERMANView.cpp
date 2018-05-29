@@ -86,7 +86,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
-	MyGame.maze.DrawMaze();
+	MyGame.maze.DrawMaze();			//画游戏地图
 }
 
 
@@ -213,6 +213,7 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
 	loadBmp("res/brick.bmp", brick);
+	loadBmp("res/reward.bmp", reward);
 
 	loadBmp("res/playerUp.bmp", playerUp);
 	loadBmp("res/playerRight.bmp", playerRight);
@@ -260,7 +261,7 @@ void CBOMBERMANView::loadBmp(char * freName, int type)
 void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	MyGame._time++;
+	MyGame._time++;		//计时开始
 
 	MyGame.manageBomb();
 
