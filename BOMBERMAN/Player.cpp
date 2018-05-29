@@ -4,7 +4,7 @@
 
 Player::Player()
 {
-	range = 1;
+	range = 2;
 	boomid = 0;
 	p_x = p_y = 0;
 	p_forWard = bottom;
@@ -59,7 +59,6 @@ void Player::move(int key,double time) {
 		//bullet->explose();
 		/*Sleep(3000);*/
 		//bullet->DestroyPlus(p_x, p_y);
-		
 	}
 	else
 	{

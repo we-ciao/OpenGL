@@ -212,6 +212,7 @@ void CBOMBERMANView::loadTexture()
 
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
+	loadBmp("res/brick.bmp", brick);
 
 	loadBmp("res/playerUp.bmp", playerUp);
 	loadBmp("res/playerRight.bmp", playerRight);
@@ -223,6 +224,7 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerWboomDown.bmp", playerWboomDown);
 	loadBmp("res/playerWboomLeft.bmp", playerWboomLeft);
 	loadBmp("res/boom.bmp", boom);
+	loadBmp("res/explosion.bmp", explosion);
 }
 
 //加载bmp
@@ -265,7 +267,3 @@ void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }
-
-
-
-

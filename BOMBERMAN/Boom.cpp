@@ -41,14 +41,14 @@ Boom::~Boom()
 void Boom::explose(Maze* maze){
 
 	//向下
-	for (int newX = this->x+1; newX <= x + rang && newX < MAZEROW; newX++) {
+	for (int newX = this->x; newX <= x + rang && newX < MAZEROW; newX++) {
 		if (eachCase(newX, y, maze) == false)
 			break;
 		maze->setCellVal(newX, y, explosion);
 	}
 		
 	//向上
-	for (int newX = this->x - 1; newX >= x - rang - 1 && newX >= 0; newX--)
+	for (int newX = this->x - 1; newX >= x - rang && newX >= 0; newX--)
 	{
 		if (eachCase(newX, y, maze) == false)
 			break;
@@ -64,7 +64,7 @@ void Boom::explose(Maze* maze){
 		maze->setCellVal(x, newY, explosion);
 	}
 	//向左
-	for (int newY = this->y - 1; newY >= y - rang - 1 && newY >= 0; newY--)
+	for (int newY = this->y - 1; newY >= y - rang && newY >= 0; newY--)
 	{
 		if (eachCase(x, newY, maze) == false)
 			break;
@@ -75,7 +75,7 @@ void Boom::explose(Maze* maze){
 
 bool Boom::eachCase(int nx,int ny,Maze* maze) {
 	//game->isSomeone(x, y);判断是不是玩家
-	if (maze->getCellVal(nx, ny) != normal&&nx!=x&&ny!=y)
+	if (maze->getCellVal(nx, ny) != normal && nx!=x && ny!=y ||maze->getCellVal(nx, ny) == obstacle)
 	{
 		return false;
 	}
