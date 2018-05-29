@@ -49,10 +49,10 @@ void Player::move(int key) {
 		&& maze->getCellVal(p_x, p_y) <= playerWboomLeft)
 	{
 		maze->setCellVal(p_x, p_y, boom);
-		bullet = new Boom();
+		bullet = new Boom(p_x,p_y,1,2,10);
 		bullet->maze = maze;
 		//bullet->explose(p_x, p_y);
-		bullet->explosePlus(p_x, p_y);
+		bullet->explose();
 		/*Sleep(3000);*/
 		//bullet->DestroyPlus(p_x, p_y);
 		

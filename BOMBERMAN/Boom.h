@@ -4,14 +4,12 @@ class Boom
 {
 public:
 	Boom();
+	Boom(int x, int y, int id,int range, double startTimer);
 	virtual ~Boom();
-	int x, y;
-	int rang,boomTime;
-	void Destroy(int x, int y);//爆炸后变为平地
-	void explose(int  ,int );//爆炸
-	bool check(int x, int y);//边缘爆炸检查
-	bool checkIsObstacle(int x, int y);//检查是不是障碍物
-	bool isBoomTime(float time);
+	int x, y,startTime,rang, boomTime,boomId;
+	void explose();//爆炸
+	bool Boom::eachCase(int x, int y);//遍历四周是否为空地
+	bool timeOver(double time);
 	Maze* maze;
 };
 
