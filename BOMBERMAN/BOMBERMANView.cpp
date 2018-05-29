@@ -223,6 +223,7 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerWboomDown.bmp", playerWboomDown);
 	loadBmp("res/playerWboomLeft.bmp", playerWboomLeft);
 	loadBmp("res/boom.bmp", boom);
+	loadBmp("res/explosion.bmp", explosion);
 }
 
 //加载bmp
