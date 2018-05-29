@@ -212,6 +212,7 @@ void CBOMBERMANView::loadTexture()
 
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
+	loadBmp("res/brick.bmp", brick);
 
 	loadBmp("res/playerUp.bmp", playerUp);
 	loadBmp("res/playerRight.bmp", playerRight);
@@ -266,7 +267,3 @@ void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }
-
-
-
-
