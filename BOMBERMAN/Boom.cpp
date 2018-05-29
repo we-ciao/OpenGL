@@ -39,14 +39,16 @@ Boom::~Boom()
 
 //炸弹在产生后爆炸
 void Boom::explose(Maze* maze){
-	int count = 0;
+	int count = 0;//计数器
 	//向下
 	for (int newX = this->x; newX <= x + rang && newX < MAZEROW; newX++) {
-		if (eachCase(newX, y, maze) == false)
+		if (eachCase(newX, y, maze) == false )
 			break;
 		if (maze->getCellVal(newX, y) != normal)
 		{
+			
 			maze->setCellVal(newX, y, explosion);
+			
 			if(count == 1)
 			break;
 		}
