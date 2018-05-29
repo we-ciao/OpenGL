@@ -3,7 +3,7 @@
 #include "Boom.h"
 #include <list>
 
-enum Forward { top=1, bottom=3, left=4, right=2 };//·½Ïò
+
 class Player
 {
 public:

@@ -3,6 +3,7 @@
 #include "BmpLoader.h"
 #include "Boom.h"
 #include "Maze.h"
+#include "Monster.h"
 #include "Player.h"
 #include <list>
 
@@ -20,10 +21,11 @@ public:
 	Player player;
 
 	double	_time;//时间
-
-	std::list<Boom*> boomlist;//炸弹队列
 	void Game::manageBomb();//管理炸弹
 
+
 protected:
+	std::list<Boom*> boomlist;//炸弹队列
+	std::list<Monster*> monsterlist;//怪物队列
 
 };

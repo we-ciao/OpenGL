@@ -103,8 +103,8 @@ void CBmpLoader::FreeImage()
    /** 释放分配的内存 */
    if(image)
       {
-         delete[] image;
-         image = 0;
+      /*   delete[] image;
+         image = 0;*/
       }
 }
 
