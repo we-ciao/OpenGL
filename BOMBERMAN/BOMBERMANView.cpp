@@ -12,6 +12,7 @@
 #include "BOMBERMANDoc.h"
 #include "BOMBERMANView.h"
 
+#include "BmpLoader.h"
 #include"gl/gl.h"
 #include"gl/glu.h"
 
@@ -210,6 +211,9 @@ void CBOMBERMANView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CBOMBERMANView::loadTexture()
 {
 
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.5);
+
 	loadBmp("res/normal.bmp", normal);
 	loadBmp("res/obstacle.bmp", obstacle);
 	loadBmp("res/brick.bmp", brick);
@@ -228,33 +232,54 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/explosion.bmp", explosion);
 }
 
+unsigned char color[3] = { 255,255,255 };
 //加载bmp
 void CBOMBERMANView::loadBmp(char * freName, int type)
 {
 
-	/**< 启用纹理映射 */
-	if (!Texture[type].LoadBitmap(freName))             /**< 载入位图文件 */
-	{
-		MessageBox("装载位图文件失败！", "错误", MB_OK);  /**< 如果载入失败则弹出对话框 */
-		return;
-	}
+	///**< 启用纹理映射 */
+	//if (!Texture[type].LoadBitmap(freName))             /**< 载入位图文件 */
+	//{
+	//	MessageBox("装载位图文件失败！", "错误", MB_OK);  /**< 如果载入失败则弹出对话框 */
+	//	return;
+	//}
+	//glGenTextures(1, &Texture[type].ID);
+	//glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
+
+	////定义二维纹理
+	//glTexImage2D(GL_TEXTURE_2D, 0, 4, Texture[type].imageWidth,
+	//	Texture[type].imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE,
+	//	Texture[type].image);
+
+	////控制滤波
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	////说明映射方式
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+	BITMAPINFOHEADER bitmapInfoHeader;                                 // bitmap信息头        
+	unsigned char*   bitmapData;                                       // 纹理数据        
+
+	bitmapData = Texture[type].LoadBitmapFile(freName, &bitmapInfoHeader, color);
+
 	glGenTextures(1, &Texture[type].ID);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
+	// 指定当前纹理的放大/缩小过滤方式        
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	//定义二维纹理
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, Texture[type].imageWidth,
-		Texture[type].imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE,
-		Texture[type].image);
-
-	//控制滤波
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	//说明映射方式
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexImage2D(GL_TEXTURE_2D,
+		0,         //mipmap层次(通常为，表示最上层)         
+		GL_RGBA,    //我们希望该纹理有红、绿、蓝、alpha数据        
+		bitmapInfoHeader.biWidth, //纹理宽带，必须是n，若有边框+2         
+		bitmapInfoHeader.biHeight, //纹理高度，必须是n，若有边框+2         
+		0, //边框(0=无边框, 1=有边框)         
+		GL_RGBA,    //bitmap数据的格式        
+		GL_UNSIGNED_BYTE, //每个颜色数据的类型        
+		bitmapData);    //bitmap数据指针        
 
 }
 
@@ -268,3 +293,4 @@ void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }
+

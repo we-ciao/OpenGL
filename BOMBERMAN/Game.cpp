@@ -21,11 +21,13 @@ Game::~Game()
 //管理炸弹
 void Game::manageBomb()
 {
+	//爆炸之后 变为平地
 	for (int i = 0; i < MAZEROW; i++)
 	{
 		for (int j = 0; j < MAZECOL; j++) {
 			if (maze.getCellVal(i, j) == explosion)
-				maze.setCellVal(i,j,normal);
+				if (maze.getCellVal(i, j) != boom)
+					maze.setCellVal(i, j, normal);
 		}
 	}
 
