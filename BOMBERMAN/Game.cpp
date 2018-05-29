@@ -21,6 +21,14 @@ Game::~Game()
 //π‹¿Ì’®µØ
 void Game::manageBomb()
 {
+	for (int i = 0; i < MAZEROW; i++)
+	{
+		for (int j = 0; j < MAZECOL; j++) {
+			if (maze.getCellVal(i, j) == explosion)
+				maze.setCellVal(i,j,normal);
+		}
+	}
+
 	std::list<Boom*>::iterator	it;
 
 	for (it = boomlist.begin(); boomlist.size() > 0 && it != boomlist.end();)
