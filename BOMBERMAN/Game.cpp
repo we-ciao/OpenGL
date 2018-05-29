@@ -21,12 +21,12 @@ Game::~Game()
 //管理炸弹
 void Game::manageBomb()
 {
-	std::list<Boom*>::iterator		it;
+	std::list<Boom*>::iterator	it;
 
 	for (it = boomlist.begin(); boomlist.size() > 0 && it != boomlist.end();)
 	{
 
-		if ((*it)->timeOver(_time) == true)
+		if ((*it)->timeOver(_time) == true)//判断是否到达爆炸时间
 		{
 			(*it)->explose(&maze);
 			//this->getPlayerById((*it)->getId())->getSkills().delBomb();判断角色释放炸弹的最大值
