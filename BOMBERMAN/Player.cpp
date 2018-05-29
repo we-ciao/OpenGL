@@ -3,22 +3,26 @@
 
 Player::Player()
 {
+	range = 1;
+	boomid = 0;
 	p_x = p_y = 0;
 	p_forWard = bottom;
 }
 
 Player::~Player()
 {
-	delete bullet;
 }
 //Íæ¼ÒÒÆ¶¯
-void Player::move(int key) {
+void Player::move(int key,double time) {
 	int n_x = p_x, n_y = p_y;
 	switch (key)
 	{
 	case VK_SPACE:
-		if (maze->getCellVal(p_x, p_y) != boom)
+		if (maze->getCellVal(p_x, p_y) != boom) {
 			maze->setCellVal(p_x, p_y, 94 + p_forWard);
+			bullet = new Boom(p_x, p_y, boomid++, range, time);
+			boomlist->push_back(bullet);
+		}
 		return;
 		break;
 	case VK_UP:
@@ -49,10 +53,9 @@ void Player::move(int key) {
 		&& maze->getCellVal(p_x, p_y) <= playerWboomLeft)
 	{
 		maze->setCellVal(p_x, p_y, boom);
-		bullet = new Boom(p_x,p_y,1,2,10);
-		bullet->maze = maze;
+		//bullet->maze = maze;
 		//bullet->explose(p_x, p_y);
-		bullet->explose();
+		//bullet->explose();
 		/*Sleep(3000);*/
 		//bullet->DestroyPlus(p_x, p_y);
 		

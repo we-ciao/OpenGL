@@ -12,7 +12,7 @@ Monster::Monster()
 Monster::~Monster()
 {
 }
-//怪物移动
+//鎬墿绉诲姩
 void Monster::Move(int x, int y) {
 	srand((unsigned)time(0));
 	switch (rand() % 4 + 1)
@@ -49,7 +49,7 @@ void Monster::Move(int x, int y) {
 		break;
 	}
 }
-//初始化怪物生成位置
+//鍒濆鍖栨�墿鐢熸垚浣嶇疆
 Monster::Monster(int x,int y)
 {
 	m_x = x;

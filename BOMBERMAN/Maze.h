@@ -1,7 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
 #include "BmpLoader.h"
-
 
 const int MAZEROW = 17;
 const int MAZECOL = 29;
@@ -12,13 +11,15 @@ const int CELLHEIGHT = CELLWIDTH;
 
 // Maze
 
-//Ã¶¾Ù 
+//æšä¸¾ 
 enum CellType {
-	normal = 0, brick = 1, boom = 2, obstacle = 3, explosion = 4,						//3ÕÏ°­Îï£¬0¿ÕµØ£¬1 ×©¿é£¬2 Õ¨µ¯ ,4 ±¬Õ¨
-	monsterUp = 41, monsterRight = 42, monsterDown = 43, monsterLeft = 44,			//4¿ªÍ·Îª¹ÖÎïµÄÉÏÏÂ×óÓÒËÄ¸ö×´Ì¬
-	playerUp = 91, playerRight = 92, playerDown = 93, playerLeft = 94,	//9¿ªÍ·ÎªÍæ¼ÒµÄÉÏÏÂ×óÓÒËÄ¸ö×´Ì¬
-	playerWboomUp = 95, playerWboomRight = 96, playerWboomDown = 97, playerWboomLeft = 98,	//Õ¨µ¯ºÍÍæ¼ÒÔÚÍ¬Ò»Î»ÖÃ
+	normal = 0, brick = 1, boom = 2, obstacle = 3, explosion = 4,				//3éšœç¢ç‰©ï¼Œ0ç©ºåœ°ï¼Œ1 ç –å—ï¼Œ2 ç‚¸å¼¹ ,4 çˆ†ç‚¸
+	monsterUp = 41, monsterRight = 42, monsterDown = 43, monsterLeft = 44,			//4å¼€å¤´ä¸ºæ€ªç‰©çš„ä¸Šä¸‹å·¦å³å››ä¸ªçŠ¶æ€
+	playerUp = 91, playerRight = 92, playerDown = 93, playerLeft = 94,			//9å¼€å¤´ä¸ºç©å®¶çš„ä¸Šä¸‹å·¦å³å››ä¸ªçŠ¶æ€
+	playerWboomUp = 95, playerWboomRight = 96, playerWboomDown = 97, playerWboomLeft = 98,	//ç‚¸å¼¹å’Œç©å®¶åœ¨åŒä¸€ä½ç½®
 };
+
+class Bomb;
 
 class Maze
 {
@@ -27,19 +28,19 @@ public:
 	Maze();
 	virtual ~Maze();
 	void DrawMaze();
-	const static int WINDOWWIDTH = 950;//ÆÁÄ»¿í¶È
-	const static int WINDOWHEIGHT = 640;//ÆÁÄ»¸ß¶È
-	void setCellVal(int x, int y, int val);		//ÉèÖÃ»Ã·½Öµ
-	int getCellVal(int x, int y);				//µÃµ½»Ã·½Öµ
-
+	const static int WINDOWWIDTH = 950;//å±å¹•å®½åº¦
+	const static int WINDOWHEIGHT = 640;//å±å¹•é«˜åº¦
+	void setCellVal(int x, int y, int val);		//è®¾ç½®å¹»æ–¹å€¼
+	int getCellVal(int x, int y);				//å¾—åˆ°å¹»æ–¹å€¼
+	
 protected:
 	int	 ppMaze[MAZEROW][MAZECOL];
 
 private:
-	void initMaze();//³õÊ¼»¯ÃÔ¹¬
-	void createBrick();//Ëæ»úÉú³É×©¿é
-	void createMonster();//Ëæ»úÉú³É¹ÖÎï
-	void drawCell(CPoint p, int type);//»æÖÆ·½¸ñ, ÔÚpÎ»ÖÃ»æÖÆtype·½¸ñ
+	void initMaze();//åˆå§‹åŒ–è¿·å®«
+	void createBrick();//éšæœºç”Ÿæˆç –å—
+	void createMonster();//éšæœºç”Ÿæˆæ€ªç‰©
+	void drawCell(CPoint p, int type);//ç»˜åˆ¶æ–¹æ ¼, åœ¨pä½ç½®ç»˜åˆ¶typeæ–¹æ ¼
 };
 
 

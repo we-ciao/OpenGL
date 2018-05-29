@@ -1,4 +1,4 @@
-// BmpLoader.h: interface for the CBmpLoader class.
+ï»¿// BmpLoader.h: interface for the CBmpLoader class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,20 +9,20 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define BITMAP_ID 0x4D42	/**< Î»Í¼ÎÄ¼þµÄ±êÖ¾ */
+#define BITMAP_ID 0x4D42	/**< ä½å›¾æ–‡ä»¶çš„æ ‡å¿— */
 
 class CBmpLoader  
 {
 public:
 	CBmpLoader();
 	virtual ~CBmpLoader();
-	  bool LoadBitmap(char *filename); /**< ×°ÔØÒ»¸öbmpÎÄ¼þ */
-      void FreeImage();                /**< ÊÍ·ÅÍ¼ÏñÊý¾Ý */
+	  bool LoadBitmap(char *filename); /**< è£…è½½ä¸€ä¸ªbmpæ–‡ä»¶ */
+      void FreeImage();                /**< é‡Šæ”¾å›¾åƒæ•°æ® */
 
-      unsigned int ID;                 /**< Éú³ÉÎÆÀíµÄIDºÅ */
-      int imageWidth;                  /**< Í¼Ïñ¿í¶È */
-      int imageHeight;                 /**< Í¼Ïñ¸ß¶È */
-      unsigned char *image;            /**< Ö¸ÏòÍ¼ÏñÊý¾ÝµÄÖ¸Õë */
+      unsigned int ID;                 /**< ç”Ÿæˆçº¹ç†çš„IDå· */
+      int imageWidth;                  /**< å›¾åƒå®½åº¦ */
+      int imageHeight;                 /**< å›¾åƒé«˜åº¦ */
+      unsigned char *image;            /**< æŒ‡å‘å›¾åƒæ•°æ®çš„æŒ‡é’ˆ */
 
 };
 

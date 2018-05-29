@@ -1,14 +1,16 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Boom.h"
 #include "time.h"
 
 
 Boom::Boom()
 {
+	boomTime = 30;
 }
 
 Boom::Boom(int inX, int inY, int inId, int irange, double istartTime)
 {
+	boomTime = 30;
 	x = inX;
 	y = inY;
 	boomId = inId;
@@ -19,7 +21,7 @@ Boom::Boom(int inX, int inY, int inId, int irange, double istartTime)
 Boom::~Boom()
 {
 }
-//±¬Õ¨Ö®ºó ±äÎªÆ½µØ
+//çˆ†ç‚¸ä¹‹å å˜ä¸ºå¹³åœ°
 //void Boom::Destroy(int x,int y) {
 //	if (maze->getCellVal(x,y) == boom)
 //	{
@@ -35,44 +37,44 @@ Boom::~Boom()
 //	}
 //}
 
-//Õ¨µ¯ÔÚ²úÉúºó±¬Õ¨
-void Boom::explose(){
+//ç‚¸å¼¹åœ¨äº§ç”Ÿåçˆ†ç‚¸
+void Boom::explose(Maze* maze){
 
-	//ÏòÏÂ
+	//å‘ä¸‹
 	for (int newX = this->x+1; newX <= x + rang && newX < MAZEROW; newX++) {
-		if (eachCase(newX, y) == false)
+		if (eachCase(newX, y, maze) == false)
 			break;
 		maze->setCellVal(newX, y, explosion);
 	}
 		
-	//ÏòÉÏ
+	//å‘ä¸Š
 	for (int newX = this->x - 1; newX >= x - rang - 1 && newX >= 0; newX--)
 	{
-		if (eachCase(newX, y) == false)
+		if (eachCase(newX, y, maze) == false)
 			break;
 		maze->setCellVal(newX, y, explosion);
 	}
 		
-	//ÏòÓÒ
+	//å‘å³
 	for (int newY = this->y + 1; newY <= y + rang && newY < MAZECOL; newY++)
 	{
-		if (eachCase(x, newY) == false)
+		if (eachCase(x, newY, maze) == false)
 			break;
 
 		maze->setCellVal(x, newY, explosion);
 	}
-	//Ïò×ó
+	//å‘å·¦
 	for (int newY = this->y - 1; newY >= y - rang - 1 && newY >= 0; newY--)
 	{
-		if (eachCase(x, newY) == false)
+		if (eachCase(x, newY, maze) == false)
 			break;
 		maze->setCellVal(x, newY, explosion);
 	}
 }
 
 
-bool Boom::eachCase(int nx,int ny) {
-	//game->isSomeone(x, y);ÅĞ¶ÏÊÇ²»ÊÇÍæ¼Ò
+bool Boom::eachCase(int nx,int ny,Maze* maze) {
+	//game->isSomeone(x, y);åˆ¤æ–­æ˜¯ä¸æ˜¯ç©å®¶
 	if (maze->getCellVal(nx, ny) != normal&&nx!=x&&ny!=y)
 	{
 		return false;
@@ -82,7 +84,7 @@ bool Boom::eachCase(int nx,int ny) {
 		return true;
 	}
 }
-//ÅĞ¶ÏÕ¨µ¯ÊÇ·ñ´ïµ½±¬Õ¨Ê±¼ä
+//åˆ¤æ–­ç‚¸å¼¹æ˜¯å¦è¾¾åˆ°çˆ†ç‚¸æ—¶é—´
 bool Boom::timeOver(double time)
 {
 	double atTime = time - startTime;

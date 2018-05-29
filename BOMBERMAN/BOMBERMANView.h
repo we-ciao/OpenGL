@@ -3,8 +3,7 @@
 //
 
 #pragma once
-#include "Maze.h"
-#include "Player.h"
+#include "Game.h"
 
 class CBOMBERMANView : public CView
 {
@@ -15,9 +14,8 @@ protected: // create from serialization only
 	// Attributes
 public:
 	CBOMBERMANDoc * GetDocument() const;
-	Maze maze;
-	Player player;
 	CBmpLoader Texture[100];
+	Game MyGame;
 	// Operations
 public:
 
@@ -62,6 +60,7 @@ public:
 
 
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 #ifndef _DEBUG  // debug version in BOMBERMANView.cpp

@@ -1,4 +1,4 @@
-
+ï»¿
 // BOMBERMANView.cpp : implementation of the CBOMBERMANView class
 //
 
@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CBOMBERMANView, CView)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_KEYDOWN()
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // CBOMBERMANView construction/destruction
@@ -41,6 +42,27 @@ CBOMBERMANView::CBOMBERMANView()
 {
 	// TODO: add construction code here
 
+}
+
+void CBOMBERMANView::Init(void)
+{
+	HGLRC hrc;
+	m_pDC = new CClientDC(this);
+	if (!bSetupPixelFormat())
+		return;
+
+	hrc = wglCreateContext(m_pDC->GetSafeHdc());
+	wglMakeCurrent(m_pDC->GetSafeHdc(), hrc);
+
+	glEnable(GL_TEXTURE_2D);
+
+	loadTexture();
+
+	MyGame._time = 0;
+
+
+	MyGame.maze.Texture = Texture;
+	SetTimer(1, 100, NULL);
 }
 
 CBOMBERMANView::~CBOMBERMANView()
@@ -64,10 +86,7 @@ void CBOMBERMANView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
-	player.maze = &maze;
-	
-	maze.Texture = Texture;
-	maze.DrawMaze();
+	MyGame.maze.DrawMaze();
 }
 
 
@@ -113,20 +132,6 @@ CBOMBERMANDoc* CBOMBERMANView::GetDocument() const // non-debug version is inlin
 
 // CBOMBERMANView message handlers
 
-void CBOMBERMANView::Init(void)
-{
-	HGLRC hrc;
-	m_pDC = new CClientDC(this);
-	if (!bSetupPixelFormat())
-		return;
-
-	hrc = wglCreateContext(m_pDC->GetSafeHdc());
-	wglMakeCurrent(m_pDC->GetSafeHdc(), hrc);
-
-	glEnable(GL_TEXTURE_2D);
-
-	loadTexture();
-}
 bool CBOMBERMANView::bSetupPixelFormat(void)
 {
 	static PIXELFORMATDESCRIPTOR pfd =
@@ -183,10 +188,10 @@ void CBOMBERMANView::OnSize(UINT nType, int cx, int cy)
 
 	// TODO: Add your message handler code here
 	int w = cx;  int h = cy;
-	glViewport(0, 0, w, h); //ÉèÖÃÊÓ¿ÚÓë´°¿ÚÆ¥Åä
-	glMatrixMode(GL_PROJECTION); //ÖØĞÂÉèÖÃ×ø±êÏµÍ³
+	glViewport(0, 0, w, h); //è®¾ç½®è§†å£ä¸çª—å£åŒ¹é…
+	glMatrixMode(GL_PROJECTION); //é‡æ–°è®¾ç½®åæ ‡ç³»ç»Ÿ
 	glLoadIdentity();
-	//½¨Á¢Õı½»±ä»»ÏÂµÄ¼ôÇĞÌå
+	//å»ºç«‹æ­£äº¤å˜æ¢ä¸‹çš„å‰ªåˆ‡ä½“
 	gluPerspective(45.0, (float)w / h, 1, 100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -196,13 +201,12 @@ void CBOMBERMANView::OnSize(UINT nType, int cx, int cy)
 
 void CBOMBERMANView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	// TODO: ÔÚ´ËÌí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂëºÍ/»òµ÷ÓÃÄ¬ÈÏÖµ
-	player.move(nChar);
-	Invalidate();
+	// TODO: åœ¨æ­¤æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç å’Œ/æˆ–è°ƒç”¨é»˜è®¤å€¼
+	MyGame.player.move(nChar, MyGame._time);
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
-//¼ÓÔØ²ÄÖÊ
+//åŠ è½½æè´¨
 void CBOMBERMANView::loadTexture()
 {
 
@@ -214,7 +218,6 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerDown.bmp", playerDown);
 	loadBmp("res/playerLeft.bmp", playerLeft);
 
-
 	loadBmp("res/playerWboomUp.bmp", playerWboomUp);
 	loadBmp("res/playerWboomRight.bmp", playerWboomRight);
 	loadBmp("res/playerWboomDown.bmp", playerWboomDown);
@@ -222,34 +225,47 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/boom.bmp", boom);
 }
 
-//¼ÓÔØbmp
+//åŠ è½½bmp
 void CBOMBERMANView::loadBmp(char * freName, int type)
 {
 
-	/**< ÆôÓÃÎÆÀíÓ³Éä */
-	if (!Texture[type].LoadBitmap(freName))             /**< ÔØÈëÎ»Í¼ÎÄ¼ş */
+	/**< å¯ç”¨çº¹ç†æ˜ å°„ */
+	if (!Texture[type].LoadBitmap(freName))             /**< è½½å…¥ä½å›¾æ–‡ä»¶ */
 	{
-		MessageBox("×°ÔØÎ»Í¼ÎÄ¼şÊ§°Ü£¡", "´íÎó", MB_OK);  /**< Èç¹ûÔØÈëÊ§°ÜÔòµ¯³ö¶Ô»°¿ò */
+		MessageBox("è£…è½½ä½å›¾æ–‡ä»¶å¤±è´¥ï¼", "é”™è¯¯", MB_OK);  /**< å¦‚æœè½½å…¥å¤±è´¥åˆ™å¼¹å‡ºå¯¹è¯æ¡† */
 		return;
 	}
 	glGenTextures(1, &Texture[type].ID);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glBindTexture(GL_TEXTURE_2D, Texture[type].ID);
 
-	//¶¨Òå¶şÎ¬ÎÆÀí
+	//å®šä¹‰äºŒç»´çº¹ç†
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, Texture[type].imageWidth,
 		Texture[type].imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE,
 		Texture[type].image);
 
-
-
-	//¿ØÖÆÂË²¨
+	//æ§åˆ¶æ»¤æ³¢
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	//ËµÃ÷Ó³Éä·½Ê½
+	//è¯´æ˜æ˜ å°„æ–¹å¼
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
 }
+
+void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: åœ¨æ­¤æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç å’Œ/æˆ–è°ƒç”¨é»˜è®¤å€¼
+	MyGame._time++;
+
+	MyGame.manageBomb();
+
+	Invalidate();
+	CView::OnTimer(nIDEvent);
+}
+
+
+
+

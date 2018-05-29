@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 #include "Maze.h"
-enum Forward { top = 1, bottom = 3, left = 4, right = 2 };//·½Ïò
+enum Forward { top = 1, bottom = 3, left = 4, right = 2 };//æ–¹å‘
 class Monster
 {
 public:
 	Monster();
-	Monster(int x, int y);//Ëæ»úÒ»¸ö¹ÖÎïµÄ²úÉúÎ»ÖÃ
+	Monster(int x, int y);//éšæœºä¸€ä¸ªæ€ªç‰©çš„äº§ç”Ÿä½ç½®
 	virtual ~Monster();
 	Maze* maze;
-	void Move(int x,int y);//¹ÖÎïÒÆ¶¯
-	int m_x, m_y;//¹ÖÎï³öÏÖµÄÎ»ÖÃ
+	void Move(int x,int y);//æ€ªç‰©ç§»åŠ¨
+	int m_x, m_y;//æ€ªç‰©å‡ºç°çš„ä½ç½®
 };
 
