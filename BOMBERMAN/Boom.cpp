@@ -46,9 +46,17 @@ void Boom::explose(Maze* maze){
 	for (int newX = this->x; newX <= x + rang && newX < MAZEROW; newX++) {
 		if (eachCase(newX, y, maze) == false )
 			break;
+
 		flag = maze->getCellVal(newX, y);
-		if (maze->getCellVal(newX, y) != normal)
+		
+		if (maze->getCellVal(newX, y) >= playerUp && maze->getCellVal(newX, y) <= playerLeft)
 		{
+			maze->gameOver = true;
+		}
+		
+		if (maze->getCellVal(newX, y) != normal )
+		{
+			
 			maze->setCellVal(newX, y, explosion);
 			if (flag == brick && rand()%10 == brick)
 			{
@@ -67,6 +75,10 @@ void Boom::explose(Maze* maze){
 		if (eachCase(newX, y, maze) == false)
 			break;
 		flag = maze->getCellVal(newX, y);
+		if (maze->getCellVal(newX, y) >= playerUp && maze->getCellVal(newX, y) <= playerLeft)
+		{
+			maze->gameOver = true;
+		}
 		if (maze->getCellVal(newX, y) != normal)
 		{
 			maze->setCellVal(newX, y, explosion);
@@ -85,6 +97,10 @@ void Boom::explose(Maze* maze){
 		if (eachCase(x, newY, maze) == false)
 			break;
 		flag = maze->getCellVal(x, newY);
+		if (maze->getCellVal(x, newY) >= playerUp && maze->getCellVal(x, newY) <= playerLeft)
+		{
+			maze->gameOver = true;
+		}
 		if (maze->getCellVal(x, newY) != normal)
 		{
 			maze->setCellVal(x, newY, explosion);
@@ -102,6 +118,11 @@ void Boom::explose(Maze* maze){
 		if (eachCase(x, newY, maze) == false)
 			break;
 		flag = maze->getCellVal(x, newY);
+		if (maze->getCellVal(x, newY) >= playerUp && maze->getCellVal(x, newY) <= playerLeft)
+		{
+
+			maze->gameOver = true;
+		}
 		if (maze->getCellVal(x, newY) != normal)
 		{
 			maze->setCellVal(x, newY, explosion);

@@ -215,8 +215,10 @@ void CBOMBERMANView::loadTexture()
 	glAlphaFunc(GL_GREATER, 0.5);
 
 	loadBmp("res/normal.bmp", normal);
+	loadBmp("res/boom.bmp", boom);
 	loadBmp("res/obstacle.bmp", obstacle);
 	loadBmp("res/brick.bmp", brick);
+	loadBmp("res/explosion.bmp", explosion);
 	loadBmp("res/reward.bmp", reward);
 
 	loadBmp("res/playerUp.bmp", playerUp);
@@ -228,8 +230,14 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerWboomRight.bmp", playerWboomRight);
 	loadBmp("res/playerWboomDown.bmp", playerWboomDown);
 	loadBmp("res/playerWboomLeft.bmp", playerWboomLeft);
-	loadBmp("res/boom.bmp", boom);
-	loadBmp("res/explosion.bmp", explosion);
+
+	loadBmp("res/monsterDown.bmp", monsterDown);
+	loadBmp("res/monsterRight.bmp", monsterRight);
+	loadBmp("res/monsterUp.bmp", monsterUp);
+	loadBmp("res/monsterLeft.bmp", monsterLeft);
+
+	
+	
 }
 
 unsigned char color[3] = { 255,255,255 };
@@ -289,7 +297,10 @@ void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 	MyGame._time++;		//计时开始
 
 	MyGame.manageBomb();
-
+	if (MyGame.maze.gameOver)
+	{
+		MessageBox("you lose!", NULL, MB_OK);
+	}
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }
