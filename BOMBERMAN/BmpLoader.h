@@ -23,7 +23,8 @@ public:
       int imageWidth;                  /**< 图像宽度 */
       int imageHeight;                 /**< 图像高度 */
       unsigned char *image;            /**< 指向图像数据的指针 */
-
+	  unsigned char *CBmpLoader::LoadBitmapFile(char *filename, BITMAPINFOHEADER *bitmapInfoHeader, unsigned char* backgroundColor);
+	  unsigned char *CBmpLoader::LoadBitmapFile(char *filename, BITMAPINFOHEADER *bitmapInfoHeader);
 };
 
 #endif // !defined(AFX_BMPLOADER_H__D57606C8_D3C1_4A3F_A114_1FEE047DAE5F__INCLUDED_)
