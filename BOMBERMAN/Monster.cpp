@@ -23,3 +23,16 @@ Monster::Monster(int x,int y)
 	m_y = y;
 	alive = true;
 }
+
+bool Monster::collisonCheck(int val)
+{
+	if (val != normal)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
