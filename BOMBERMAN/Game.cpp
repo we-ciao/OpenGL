@@ -1,7 +1,7 @@
 
 #include "stdafx.h"
 #include "Game.h"
-
+#include "Font.h"
 // Maze
 
 Game::Game()
@@ -19,7 +19,28 @@ Game::~Game()
 
 void Game::draw()
 {
-	maze.DrawMaze();
+	char string[] = "YOU LOSE!";
+	GLFont font;
+	if (!maze.gameOver)
+	{
+		maze.DrawMaze();
+	}
+	else
+	{
+		//设置清屏颜色为黑色
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		//清除颜色缓冲区和深度缓冲区
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+			glPopMatrix();
+			glPushAttrib(GL_CURRENT_BIT);
+			glColor3f(1.0, 1.0, 1.0);
+			font.PrintText(string, 0, 0);
+			glPopAttrib();
+			glFlush();
+			SwapBuffers(wglGetCurrentDC());
+	}
+	
 }
 
 //管理炸弹

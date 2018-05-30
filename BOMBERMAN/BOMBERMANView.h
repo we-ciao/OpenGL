@@ -16,6 +16,7 @@ public:
 	CBOMBERMANDoc * GetDocument() const;
 	CBmpLoader Texture[100];	//保存纹理图片的数组
 	Game MyGame;				//Game对象
+	
 	// Operations
 public:
 

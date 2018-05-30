@@ -15,6 +15,7 @@
 #include "BmpLoader.h"
 #include"gl/gl.h"
 #include"gl/glu.h"
+#include "Font.h"
 
 
 #ifdef _DEBUG
@@ -226,6 +227,10 @@ void CBOMBERMANView::loadTexture()
 	loadBmp("res/playerDown.bmp", playerDown);
 	loadBmp("res/playerLeft.bmp", playerLeft);
 
+	loadBmp("res/monsterDown.bmp", monsterDown);
+	loadBmp("res/monsterRight.bmp", monsterRight);
+	loadBmp("res/monsterUp.bmp", monsterUp);
+	loadBmp("res/monsterLeft.bmp", monsterLeft);
 
 	loadBmp("res/playerWboomUp.bmp", playerWboomUp);
 	loadBmp("res/playerWboomRight.bmp", playerWboomRight);
@@ -312,11 +317,7 @@ void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 	MyGame._time++;		//计时开始
 
 	MyGame.manageBomb();
-	if (MyGame.maze.gameOver)
-	{
-		MessageBox("you lose!", NULL, MB_OK);
-	}
+	
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }
-
