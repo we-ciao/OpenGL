@@ -16,19 +16,19 @@ void Monster::Move() {
 	srand((unsigned)time(NULL));
 	switch (rand() %4+1)
 	{
-	case 1:
+	case top:
 		m_forWard = top;
 		n_x--;
 		break;
-	case 2:
+	case right:
 		m_forWard = right;
 		n_y++;
 		break;
-	case 3:
+	case bottom:
 		m_forWard = bottom;
 		n_x++;
 		break;
-	case 4:
+	case left:
 		m_forWard = left;
 		n_y--;
 		break;
@@ -36,7 +36,9 @@ void Monster::Move() {
 		break;
 	}
 
-	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
+	int tvalue = maze->getCellVal(n_x, n_y);
+
+	if (!borderCheck(n_x, n_y) || !collisonCheck(tvalue))
 		return;
 
 
@@ -44,6 +46,11 @@ void Monster::Move() {
 
 	m_x = n_x, m_y = n_y;
 	maze->setCellVal(m_x, m_y, 40 + m_forWard);
+
+	if (tvalue >= playerUp && tvalue <= playerLeft)
+	{
+		maze->gameOver = true;
+	}
 
 }
 //初始化怪物生成位置
@@ -70,6 +77,10 @@ bool Monster::borderCheck(int x, int y) {
 
 bool Monster::collisonCheck(int val)
 {
+	if (val >= playerUp && val <= playerLeft)
+	{
+		return true;
+	}
 	if (val == normal)
 	{
 		return true;

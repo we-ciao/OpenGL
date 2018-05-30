@@ -26,7 +26,8 @@ void Game::draw()
 	{
 		_time++;		//计时开始
 		manageBomb();
-		manageMonster();
+		if ((int)_time % 5 == 0)
+			manageMonster();
 		maze.DrawMaze();
 	}
 	else
@@ -75,7 +76,7 @@ void Game::manageMonster()
 		{
 			(*it)->Move();
 		}
-			
+
 	}
 }
 

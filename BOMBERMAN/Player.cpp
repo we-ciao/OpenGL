@@ -63,7 +63,8 @@ void Player::move(int key,double time) {
 		break;
 	}
 
-	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
+	int tvalue = maze->getCellVal(n_x, n_y);
+	if (!borderCheck(n_x, n_y) || !collisonCheck(tvalue))
 		return;
 
 	if (maze->getCellVal(n_x, n_y) == reward)
@@ -84,6 +85,12 @@ void Player::move(int key,double time) {
 	}
 	 p_x= n_x ,  p_y= n_y ;
 	 maze->setCellVal(p_x, p_y, 90 + p_forWard);
+
+
+	 if (tvalue >= monsterUp && tvalue <= monsterLeft)
+	 {
+		 maze->gameOver = true;
+	 }
 }
 //±ß½ç¼ì²é
 bool Player::borderCheck(int x, int y) {
@@ -98,6 +105,11 @@ bool Player::borderCheck(int x, int y) {
 }
 //Åö×²¼ì²â
 bool Player::collisonCheck(int val) {
+
+	if (val >= monsterUp && val <= monsterLeft)
+	{
+		return true;
+	}
 	if (val == normal || val == reward)
 	{
 		return true;
