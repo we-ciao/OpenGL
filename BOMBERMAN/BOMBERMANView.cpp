@@ -215,8 +215,12 @@ void CBOMBERMANView::loadTexture()
 	glAlphaFunc(GL_GREATER, 0.5);
 
 	loadBmp("res/normal.bmp", normal);
+	loadBmp("res/boom.bmp", boom);
 	loadBmp("res/obstacle.bmp", obstacle);
 	loadBmp("res/brick.bmp", brick);
+	loadBmp("res/explosion.bmp", explosion);
+	loadBmp("res/reward.bmp", reward);
+
 	loadBmp("res/playerUp.bmp", playerUp);
 	loadBmp("res/playerRight.bmp", playerRight);
 	loadBmp("res/playerDown.bmp", playerDown);
@@ -305,10 +309,13 @@ void CBOMBERMANView::loadBmp(char * freName, int type)
 void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	MyGame._time++;
+	MyGame._time++;		//计时开始
 
 	MyGame.manageBomb();
-
+	if (MyGame.maze.gameOver)
+	{
+		MessageBox("you lose!", NULL, MB_OK);
+	}
 	Invalidate();
 	CView::OnTimer(nIDEvent);
 }

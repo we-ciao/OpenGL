@@ -4,7 +4,8 @@
 
 Player::Player()
 {
-	range = 2;
+	range = 1;
+	n = 0;						//记录炸弹个数
 	boomid = 0;
 	p_x = p_y = 0;
 	p_forWard = bottom;
@@ -17,13 +18,16 @@ Player::~Player()
 //玩家移动
 void Player::move(int key,double time) {
 	int n_x = p_x, n_y = p_y;
+	
 	switch (key)
 	{
 	case VK_SPACE:
 		if (maze->getCellVal(p_x, p_y) != boom) {
 			maze->setCellVal(p_x, p_y, 94 + p_forWard);
-			bullet = new Boom(p_x, p_y, boomid++, range, time);
-			boomlist->push_back(bullet);
+			bullet = new Boom(p_x, p_y, boomid++, range, time);		//制造炸弹
+			boomlist->push_back(bullet);							//放入链表
+			point[n++].x = p_x;
+			point[n++].y = p_y;
 		}
 		return;
 		break;
@@ -62,6 +66,10 @@ void Player::move(int key,double time) {
 	if (!borderCheck(n_x, n_y) || !collisonCheck(maze->getCellVal(n_x, n_y)))
 		return;
 
+	if (maze->getCellVal(n_x, n_y) == reward)
+		range++;
+	
+
 	maze->isStop = false;
 	maze->count = 0;
 
@@ -90,7 +98,11 @@ bool Player::borderCheck(int x, int y) {
 }
 //碰撞检测
 bool Player::collisonCheck(int val) {
-	if (val != normal)
+	if (val == normal || val == reward)
+	{
+		return true;
+	}
+	else
 	{
 		return false;
 	}
@@ -99,93 +111,3 @@ bool Player::collisonCheck(int val) {
 		return true;
 	}
 }
-
-
-//
-//
-//void Player::drawSprite()
-//{
-//	const int step = 800;
-//	count++;
-//
-//	if (isStop) {
-//		if (p_forWard == top) {
-//			drawRect(texture, index[0][1][0], index[0][1][1]);
-//		}
-//		else if (p_forWard == bottom) {
-//			drawRect(texture, index[3][1][0], index[3][1][1]);
-//		}
-//		else if (p_forWard == left) {
-//			drawRect(texture, index[1][1][0], index[1][1][1]);
-//		}
-//		else if (p_forWard == right) {
-//			drawRect(texture, index[2][1][0], index[2][1][1]);
-//		}
-//	}
-//	else if (p_forWard == top) {
-//		if (count <= step) {
-//			drawRect(texture, index[0][0][0], index[0][0][1]);
-//		}
-//		else if (count > step&&count <= step * 2) {
-//			drawRect(texture, index[0][1][0], index[0][1][1]);
-//		}
-//		else if (count > step * 2 && count <= step * 3) {
-//			drawRect(texture, index[0][2][0], index[0][2][1]);
-//		}
-//	}
-//	else if (p_forWard == bottom) {
-//		if (count <= step) {
-//			drawRect(texture, index[3][0][0], index[3][0][1]);
-//		}
-//		else if (count > step && count <= step * 2) {
-//			drawRect(texture, index[3][1][0], index[3][1][1]);
-//		}
-//		else if (count > step * 2 && count <= step * 3) {
-//			drawRect(texture, index[3][2][0], index[3][2][1]);
-//		}
-//	}
-//	else if (p_forWard == left) {
-//		if (count <= step) {
-//			drawRect(texture, index[1][0][0], index[1][0][1]);
-//		}
-//		else if (count > step && count <= step * 2) {
-//			drawRect(texture, index[1][1][0], index[1][1][1]);
-//		}
-//		else if (count > step * 2 && count <= step * 3) {
-//			drawRect(texture, index[1][2][0], index[1][2][1]);
-//		}
-//	}
-//	else if (p_forWard == right) {
-//		if (count <= step) {
-//			drawRect(texture, index[2][0][0], index[2][0][1]);
-//		}
-//		else if (count > step && count <= step * 2) {
-//			drawRect(texture, index[2][1][0], index[2][1][1]);
-//		}
-//		else if (count > step * 2 && count <= step * 3) {
-//			drawRect(texture, index[2][2][0], index[2][2][1]);
-//		}
-//	}
-//	if (count%step == 0) {
-//		if (count2 == count3) {
-//			if (p_forWard == top) {
-//				drawRect(texture, index[0][1][0], index[0][1][1]);
-//			}
-//			else if (p_forWard == bottom) {
-//				drawRect(texture, index[3][1][0], index[3][1][1]);
-//			}
-//			else if (p_forWard == left) {
-//				drawRect(texture, index[1][1][0], index[1][1][1]);
-//			}
-//			else if (p_forWard == right) {
-//				drawRect(texture, index[2][1][0], index[2][1][1]);
-//			}
-//			isStop = true;
-//
-//		}
-//		count3 = count2;
-//	}
-//	if (count == step * 3) {
-//		count = 0;
-//	}
-//}
