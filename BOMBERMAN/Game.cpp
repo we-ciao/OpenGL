@@ -1,7 +1,7 @@
 
 #include "stdafx.h"
 #include "Game.h"
-
+#include "Font.h"
 // Maze
 
 Game::Game()
