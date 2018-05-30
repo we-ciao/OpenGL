@@ -10,4 +10,5 @@ public:
 	Maze* maze;
 	void Move(int x,int y);//怪物移动
 	int m_x, m_y, m_forWard;//怪物出现的位置
+	bool alive;
 };

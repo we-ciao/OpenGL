@@ -49,7 +49,7 @@ protected:
 private:
 	void initMaze();//初始化迷宫
 	void createBrick();//随机生成砖块
-	void createMonster();//随机生成怪物
+	//void createMonster();//随机生成怪物
 	void drawCell(CPoint p, int type);//绘制方格, 在p位置绘制type方格
 	void drawPlayer(float x, float y);//绘制玩家, 在p位置绘制
 };

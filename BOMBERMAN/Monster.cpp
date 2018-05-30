@@ -13,12 +13,13 @@ Monster::~Monster()
 }
 //怪物移动
 void Monster::Move(int x, int y) {
-	srand((unsigned)time(0));
 
 }
 //初始化怪物生成位置
 Monster::Monster(int x,int y)
 {
+	m_forWard = bottom;
 	m_x = x;
 	m_y = y;
+	alive = true;
 }

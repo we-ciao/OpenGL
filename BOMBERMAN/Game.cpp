@@ -6,7 +6,7 @@
 
 Game::Game()
 {
-	
+
 	//player = new Player(12, 96, -2.0f, -2.5f,0, index1, 0.15f);
 	player.maze = &maze;
 	player.boomlist = &boomlist;
@@ -19,7 +19,46 @@ Game::~Game()
 
 void Game::draw()
 {
+	_time++;		//计时开始
+
+	manageBomb();
 	maze.DrawMaze();
+	manageMonster();
+}
+
+
+//随机生成怪物
+void Game::createMonster()
+{
+	srand((unsigned)time(NULL));
+	for (int i = 2; i < MAZEROW; i++)
+	{
+		for (int j = 2; j < MAZECOL; j++) {
+			if (rand() % 20 < 1 && maze.getCellVal(i, j) == normal) {
+				maze.setCellVal(i, j, monsterDown);
+				Monster* monster = new Monster(i,j);		//制造炸弹
+				monsterlist.push_back(monster);				//放入链表
+			}
+		}
+	}
+}
+
+//管理怪物
+void Game::manageMonster()
+{
+
+	std::list<Monster*>::iterator	it;
+
+	for (it = monsterlist.begin(); monsterlist.size() > 0 && it != monsterlist.end();)
+	{
+
+		if ((*it)->alive == true)//判断是否到达爆炸时间
+		{
+
+		}
+		else
+			++it;
+	}
 }
 
 //管理炸弹

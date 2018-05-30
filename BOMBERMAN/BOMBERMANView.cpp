@@ -309,14 +309,12 @@ void CBOMBERMANView::loadBmp(char * freName, int type)
 void CBOMBERMANView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	MyGame._time++;		//计时开始
-
-	MyGame.manageBomb();
+	
 	if (MyGame.maze.gameOver)
 	{
 		MessageBox("you lose!", NULL, MB_OK);
 	}
-	Invalidate();
+	MyGame.draw();
 	CView::OnTimer(nIDEvent);
 }
 
