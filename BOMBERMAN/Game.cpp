@@ -19,11 +19,30 @@ Game::~Game()
 
 void Game::draw()
 {
-	_time++;		//计时开始
-
-	manageBomb();
-	maze.DrawMaze();
-	manageMonster();
+	char string[] = "YOU LOSE!";
+	GLFont font;
+	if (!maze.gameOver)
+	{
+		_time++;		//计时开始
+		manageBomb();
+		maze.DrawMaze();
+		manageMonster();
+	}
+	else
+	{
+		//设置清屏颜色为黑色
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		//清除颜色缓冲区和深度缓冲区
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		glPopMatrix();
+		glPushAttrib(GL_CURRENT_BIT);
+		glColor3f(1.0, 1.0, 1.0);
+		font.PrintText(string, 0, 0);
+		glPopAttrib();
+		glFlush();
+		SwapBuffers(wglGetCurrentDC());
+	}
 }
 
 
@@ -36,7 +55,7 @@ void Game::createMonster()
 		for (int j = 2; j < MAZECOL; j++) {
 			if (rand() % 20 < 1 && maze.getCellVal(i, j) == normal) {
 				maze.setCellVal(i, j, monsterDown);
-				Monster* monster = new Monster(i,j);		//制造炸弹
+				Monster* monster = new Monster(i, j);		//制造炸弹
 				monsterlist.push_back(monster);				//放入链表
 			}
 		}
