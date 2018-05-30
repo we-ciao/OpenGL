@@ -14,7 +14,7 @@ void Monster::Move() {
 	int n_x = m_x, n_y = m_y;
 
 	srand((unsigned)time(NULL));
-	switch (1)
+	switch (rand() %4+1)
 	{
 	case 1:
 		m_forWard = top;
@@ -70,7 +70,7 @@ bool Monster::borderCheck(int x, int y) {
 
 bool Monster::collisonCheck(int val)
 {
-	if (val != normal)
+	if (val == normal)
 	{
 		return true;
 	}
