@@ -106,8 +106,19 @@ bool Player::collisonCheck(int val) {
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
+}
+
+bool Player::isEnd()
+{
+	for (int i = 0; i <= n; i++)
+		if (abs(p_x - point[i].x) <= range || abs(p_y - point[i].y) <= range)
+		{
+			if (p_x == p_y == 0)
+				continue;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 }
