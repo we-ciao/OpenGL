@@ -1,5 +1,5 @@
 # OpenGL
 
-Earth
+BOMBERMAN
 
-![Earth](earth.png)
+![BOMBERMAN](BOMBERMAN.png)
